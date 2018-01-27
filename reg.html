@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+  <link rel="stylesheet" href="style.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up Form</title>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+
+      <form action="reg.php" method="post" enctype="multipart/form-data">
+      
+        <h1>Sign Up</h1>
+        
+        <fieldset>
+          
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required >
+          
+          <label for="mail">Email:</label>
+          <input type="email" id="mail" name="email" required>
+
+          <label for="id">Id:</label>
+          <input type="text" id="id" name="id" required>
+          
+          
+          
+          <label>Gender:</label>
+          <input type="radio" id="male" value="male" name="gender"><label for="male" class="light">Male</label><br>
+          <input type="radio" id="female" value="female" name="gender"><label for="female" class="light">Female</label>
+
+          <label>User as:</label>
+          <input type="radio" id="user" value="student" name="user"><label for="student" class="light">Student</label><br>
+          <input type="radio" id="user" value="teacher" name="user" required><label for="teacher" class="light">Teacher</label>
+
+          <div id="showextra" style="display: none;">
+
+          	<label for="id">CGPA 10</label>
+            <input type="text" id="cgpa10" name="cgpa10" required>
+
+            <label for="id">CGPA 11</label>
+            <input type="text" id="cgpa11" name="cgpa11" required>
+          	
+          </div>
+
+          <label for="mobile">Mobile:</label>
+          <input type="text" id="mobile1" name="mobile1" value="mobile1">
+          <input type="text" id="mobile2" name="mobile2" value="mobile2">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+
+           <label for="password">Confirm Password:</label>
+          <input type="password" id="cpassword" name="cpassword" required>
+
+          <label for="image">Image</label>
+          <input type="file" name="image" id="image">
+
+        </fieldset>
+               
+        <button type="submit" name="reg">Submit</button>
+      </form>
+  <script
+  src="js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript">
+  	$(document).ready(function() {
+    
+    $('input[type=radio][name=user]').change(function() {
+        
+        if (this.value === 'student') {
+          
+        	$("#showextra").css({"display": "block"});
+        	$("#cgpa10, #cgpa11").removeAttr("disabled");
+
+        } else if (this.value === 'teacher') {
+		            
+		 	$("#showextra").css({"display": "none"});
+		 	$("#cgpa10, #cgpa11").attr("disabled","disabled");
+		}
+		
+		});
+    });
+  </script>
+    </body>
+</html>
+

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>
+<style type="text/css">
+.container
+{ font-size: 50px;
+color:#D12D0A;
+width:490px;
+height:250px;
+margin:0px auto;
+padding: 25px;
+border: 5px solid green;
+background:#B4F3FA ;
+}
+.left
+{ font-size: 30px;
+color:#D12D0A;
+width:245px;
+float: left;
+text-align: right;
+}
+.right
+{ font-size: 30px;
+color:#D12D0A;
+width:245px;
+float: left;
+text-align: left;
+}
+p{
+font-size: 50px;
+margin:0px auto;
+font-style: arial ;
+text-align: center;
+color:#603179 ;
+margin: 10px;
+}
+input{
+border:2px solid #124536;
+width:150px;
+height:20px;
+}
+button{
+border:2px solid #124536;
+width:60px;
+height:30px;
+font-size: 20px;
+}
+/*.code{
+font-size: 30px;
+color:#D12D0A;
+width:500px;
+height:200px;
+margin:0px auto;
+text-align: middle;
+border: ;
+background: ;
+}*/
+</style>
+</head>
+<body style="background-color:#90EE90">
+<p> Registration form </p> 
+<div class="container">
+<div class="left">
+<label>Id:</label> <br>
+<label>Name:</label> <br>
+<label>Email:</label> <br> 
+<label>Contact:</label><br>
+<label>Password:</label><br>
+
+</div>
+<div class="right">
+<form action="" method="POST">
+<input type="number" name="id" required>
+<input type="text" name="name" > <br>
+<input type="email" name="email" > <br>
+<input type="text" name="contact" > <br>
+<input type="password" name="password" > <br>
+
+<button type="submit" name="add" > Add </button>
+<button type="submit" name="update" style="width:75px"> Update </button>
+<button type="submit" name="delete" style="width:70px"> Delete </button>
+
+</form>
+</div>
+</div>
+<div class="code">
+
+<?php
+
+$rId=@$_REQUEST['id'];
+$rName=@$_REQUEST['name'];
+$rEmail=@$_REQUEST['email'];
+$rContact=@$_REQUEST['contact'];
+$rPassword=md5(@$_REQUEST['password']);
+
+if(isset($_POST['add']))
+
+{
+$obj=new form("localhost","root","","washpurdb");
+
+echo $obj->insert("registration","Id='$rId',Name='$rName',Email = '$rEmail',Contact='$rContact',Password='$rPassword'");
+}
+if(isset($_POST['update']))
+{
+$obj=new form("localhost","root","","washpurdb");
+echo $obj->update("registration","Name='$rName',Email = '$rEmail',Contact='$rContact',Password='$rPassword'","Id='$rId'");
+}
+
+if(isset($_POST['delete']))
+{
+$obj=new form("localhost","root","","washpurdb");
+echo $obj->delete("registration","Id='$rId'");
+}
+
+class form
+{
+private $conn;
+public function __construct($host,$user,$pass,$db)
+{
+
+$this->conn=new mysqli($host,$user,$pass,$db);
+if($this->conn->connect_errno)
+{
+die("Connection fail".$this->conn->connect_error);
+}
+else
+{
+echo"Database connected";
+}
+}
+
+public function insert($table,$col)
+{
+$sql="INSERT INTO $table SET $col";
+$result=$this->conn->query($sql);
+
+if($this->conn->affected_rows>0)
+{
+echo"<br>";
+echo"Data Inserted";
+}
+else
+{
+echo"<br>";
+echo"Data is not inserted";
+}
+}
+
+public function update($table,$col,$where)
+{
+$sql="UPDATE $table SET $col WHERE $where";
+$result=$this->conn->query($sql);
+if($this->conn->affected_rows>0)
+{
+echo"<br>";
+echo"Data Updated";
+}
+else
+{
+echo"<br>";
+echo"Update Operation Fail";
+}
+
+}
+
+public function delete($table,$col)
+{
+$sql="DELETE from $table WHERE $col ";
+$result=$this->conn->query($sql);
+if($this->conn->affected_rows)
+{
+echo"<br>";
+echo"Deleted";
+}
+else
+{
+echo"<br>";
+echo"failed operation";
+}
+
+}
+}
+
+?>
+
+</div>
+
+</body>
+</html>
